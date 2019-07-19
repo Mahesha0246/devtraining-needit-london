@@ -5,7 +5,7 @@
         <action_delete>false</action_delete>
         <action_insert>true</action_insert>
         <action_query>false</action_query>
-        <action_update>false</action_update>
+        <action_update>true</action_update>
         <active>true</active>
         <add_message>false</add_message>
         <advanced>true</advanced>
@@ -27,15 +27,15 @@
         <rest_service_text/>
         <rest_variables/>
         <role_conditions/>
-        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+        <script><![CDATA[(function executeRule(current, previous ) {
 
-	/*
-	/*
+	// Add your code here
+	/* // Commented this code as the same logic is used with Script Include
 	// rightnow stores the current time
 	var rightnow = new GlideDateTime();
 	// Create a GlideDateTime object for the When needed date
-	var whenNeeded = new GlideDateTime(current.u_when_needed);
-	alert("Rightnow: " +rightnow + " and WhenNeeded: " +whenNeeded);
+	var whenNeeded = new GlideDateTime(current.u_glide_date_time_1);
+	//alert("RightNow: " + rightnow + ", When Needed: " + whenNeeded);
 	
 	// If the When needed date is before rightnow, do not write the record to the database
 	// Output an error message to the screen
@@ -43,40 +43,57 @@
 		gs.addErrorMessage("When needed date cannot be in the past.  Your request has not been saved to the database.");
 		current.setAbortAction(true);
 	}
-	gs.info("This is a info message from NeedIt app.");
-	gs.warn("This is a warning message from NeedIt app.");
-	gs.error("This is a error message from NeedIt app");
 	*/
+
 	
-	/*
+	
+	//Updated code to call function defined in the Script Include
 	// Instantiate the NeedItUtils class.  Call the isDatePast method and pass 
 	// the u_when_needed value.
 	var niutils = new NeedItUtils();
-	var isPast = niutils.isDatePast(current.u_when_needed);
+	/*
+	var isPast = niutils.isDatePast(current.u_glide_date_time_1);
 	
 	// If the isDatePast method returns true, the date is in the past.
 	if(isPast == true){
-		gs.addErrorMessage("When needed date cannot be in the past.  Your request has not been saved to the database.");
+		gs.addErrorMessage("When needed date cannot be in the past.  Your request has not been saved to the database._NeedItUtils");
 		current.setAbortAction(true);
 	}
 	*/
+	
+	/*
 	// pass the When needed field value to the isDateToday method in NeedItUtils
-	var isToday = niutils.isDateToday(current.u_when_needed);
+	var isToday = niutils.isDateToday(current.u_glide_date_time_1);
 	
 	// if the isDateToday method returns true the When needed date is today 
 	if(isToday == true){
 		gs.addErrorMessage("You cannot submit NeedIt requests for today.");
 		current.setAbortAction(true);
 	}
+	
+	*/
+	
+	// pass the When needed field value to the isDateToday method in NeedItUtils
+	var isFuture = niutils.isDateFuture(current.u_glide_date_time_1);
+	
+	// if the isDateToday method returns true the When needed date is today 
+	//if(isFuture == true){	
+	if(isFuture == false){ // this code is used for if (actdate.after(today)); otherwise use above if condition
+		gs.addErrorMessage("When needed date cannot be in the past or today - Please submit only future date for When needed field");
+		current.setAbortAction(true);
+	}
 
-})(current, previous);]]></script>
+})(current, previous);
+
+
+]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-03-12 20:36:50</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a9af2c53dbc03300ac6da455ca961994</sys_id>
-        <sys_mod_count>10</sys_mod_count>
+        <sys_mod_count>36</sys_mod_count>
         <sys_name>NeedIt When needed field date</sys_name>
         <sys_overrides/>
         <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
@@ -84,7 +101,7 @@
         <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
         <sys_update_name>sys_script_a9af2c53dbc03300ac6da455ca961994</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-03-18 20:31:16</sys_updated_on>
+        <sys_updated_on>2019-07-19 14:57:37</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

@@ -62,7 +62,7 @@
             <element>state</element>
             <hint/>
             <inactive>false</inactive>
-            <label>Awaiting</label>
+            <label>Awaiting Feedback</label>
             <language>en</language>
             <name>x_58872_needit_needit</name>
             <sequence>3</sequence>
@@ -71,9 +71,9 @@
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>354520c5db003300ac6da455ca9619ba</sys_id>
-            <sys_mod_count>3</sys_mod_count>
+            <sys_mod_count>4</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-04-23 20:33:10</sys_updated_on>
+            <sys_updated_on>2019-07-15 15:29:41</sys_updated_on>
             <value>16</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
